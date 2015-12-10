@@ -25,7 +25,6 @@
 #include <cctype>
 
 using namespace std;
-
 class Scientist;
 
 Data::Data()
@@ -35,8 +34,8 @@ Data::Data()
 
 void Data::openDatabase()
 {
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    QString dbName = QString("Database (4).sqlite");
+    db = QSqlDatabase::addDatabase ("QSQLITE");
+    QString dbName = QString ("Database (4).sqlite");
     db.setDatabaseName(dbName);
     db.open();
 }
@@ -70,20 +69,19 @@ vector<Scientist> Data::SortSci(QString str)
     openDatabase();
     QSqlQuery query(db);
     query.prepare(str);
-    query.bindValue("Name", QString::fromStdString("dbName"));
+    query.bindValue ("Name", QString::fromStdString("dbName"));
     query.exec(str);
     while(query.next())
     {
-        if(query.value("Hide") == "false")
+        if(query.value ("Hide") == "false")
         {
-            int id = query.value("id").toUInt();
-            string name = query.value("Name").toString().toStdString();
-            string birth = query.value("Birth").toString().toStdString();
-            string death = query.value("Death").toString().toStdString();
-            string gender = query.value("Gender").toString().toStdString();
+            int id = query.value ("id").toUInt();
+            string name = query.value ("Name").toString().toStdString();
+            string birth = query.value ("Birth").toString().toStdString();
+            string death = query.value ("Death").toString().toStdString();
+            string gender = query.value ("Gender").toString().toStdString();
 
             Scientist sci(id, name, birth, death, gender);
-
             scientistVector.push_back(sci);
         }
     }
@@ -93,30 +91,27 @@ vector<Scientist> Data::SortSci(QString str)
 
 vector<Computer> Data::SortCom(QString str)
 {
-
     openDatabase();
     QSqlQuery query(db);
     query.prepare(str);
-    query.bindValue("Name", QString::fromStdString("dbName"));
+    query.bindValue ("Name", QString::fromStdString("dbName"));
     query.exec(str);
     while(query.next())
     {
-        if(query.value("Hide") == "false")
+        if(query.value ("Hide") == "false")
         {
-            int id = query.value("id").toUInt();
-            string name = query.value("Name").toString().toStdString();
-            string year = query.value("Year").toString().toStdString();
-            string type = query.value("Type").toString().toStdString();
-            string built = query.value("Built").toString().toStdString();
+            int id = query.value ("id").toUInt();
+            string name = query.value ("Name").toString().toStdString();
+            string year = query.value ("Year").toString().toStdString();
+            string type = query.value ("Type").toString().toStdString();
+            string built = query.value ("Built").toString().toStdString();
 
             Computer com(id, name, year, type, built);
-
             computerVector.push_back(com);
         }
     }
     closeDatabase();
     return computerVector;
-
 }
 
 void Data::AddSci(QString str)
@@ -125,8 +120,6 @@ void Data::AddSci(QString str)
     QSqlQuery query(db);
     string Name, Birth, Death, Gender;
     string Hide = "false";
-
-    //toupper fall fyrir name
 
     cout << "Enter Firstname: ";
     getline(cin, Name, '\n');
@@ -154,8 +147,6 @@ void Data::AddCom(QString str)
     QSqlQuery query(db);
     string Name, Year, Type, Built;
     string Hide = "false";
-
-    //toupper fall fyrir name
 
     cout << "Enter Name of Computer: ";
     getline(cin, Name, '\n');
@@ -242,8 +233,7 @@ void Data::AddConnected(QString str)
         cin >> input;
 
         c_tempId = c_temp.at(input).getID_Computer();
-
-        cout << endl << c_temp.at(input).getName_Computer() << " Has Been Selected!" << endl;
+        cout << endl << c_temp.at(input).getName_Computer() << "Has Been Selected!" << endl;
     }
 
     openDatabase();
@@ -251,8 +241,8 @@ void Data::AddConnected(QString str)
 
     query.prepare(str);
 
-    query.bindValue(":computers_id", QString::number(c_tempId));
-    query.bindValue(":persons_id", QString::number(s_tempId));
+    query.bindValue (":computers_id", QString::number(c_tempId));
+    query.bindValue (":persons_id", QString::number(s_tempId));
     query.exec();
     cout << "Connection Added!" << endl;
     closeDatabase();
@@ -339,25 +329,20 @@ void Data::RemoveSci(QString str)
     closeDatabase();
 }
 */
-vector<Connection> Data::viewConnected(QString str)
+vector <Connection> Data::viewConnected (QString str)
 {
     openDatabase();
     QSqlQuery query(db);
-
     query.prepare(str);
-
     query.exec();
 
     while(query.next())
     {
-
         string s_name = query.value("pName").toString().toStdString();
         string c_name = query.value("Name").toString().toStdString();
 
         Connection con(s_name, c_name);
-
         connectionVector.push_back(con);
-
     }
     closeDatabase();
     return connectionVector;
@@ -370,7 +355,8 @@ void Data::RemoveCom(QString str)
     QSqlQuery query(db);
 }
 */
-vector<Scientist> Data::searchSci(QString str)
+
+vector <Scientist> Data::searchSci (QString str)
 {
     openDatabase();
     QSqlQuery query(db);
@@ -388,29 +374,26 @@ vector<Scientist> Data::searchSci(QString str)
     cout << "Search Gender: ";
     getline(cin,g,'\n');
 
-
     query.prepare(str);
 
-    query.bindValue(":Name",QString::fromStdString(n));
-    query.bindValue(":Birth",QString::fromStdString(b));
-    query.bindValue(":Death",QString::fromStdString(d));
-    query.bindValue(":Gender",QString::fromStdString(g));
+    query.bindValue (":Name",QString::fromStdString(n));
+    query.bindValue (":Birth",QString::fromStdString(b));
+    query.bindValue (":Death",QString::fromStdString(d));
+    query.bindValue (":Gender",QString::fromStdString(g));
 
     query.exec();
 
     while(query.next())
     {
-        if(query.value("Hide") == "false")
+        if (query.value("Hide") == "false")
         {
-            int id = query.value("id").toUInt();
-            string name = query.value("Name").toString().toStdString();
-            string birth = query.value("Birth").toString().toStdString();
-            string death = query.value("Death").toString().toStdString();
-            string gender = query.value("Gender").toString().toStdString();
-
+            int id = query.value ("id").toUInt();
+            string name = query.value ("Name").toString().toStdString();
+            string birth = query.value ("Birth").toString().toStdString();
+            string death = query.value ("Death").toString().toStdString();
+            string gender = query.value ("Gender").toString().toStdString();
 
             Scientist sci(id, name, birth, death, gender);
-
             scientistVector.push_back(sci);
         }
     }
@@ -437,7 +420,6 @@ vector<Computer> Data::searchCom(QString str)
     getline(cin,t,'\n');
     cout << "Search if Built: ";
     getline(cin,b,'\n');
-
 
     query.prepare(str);
 
@@ -468,4 +450,3 @@ vector<Computer> Data::searchCom(QString str)
     closeDatabase();
     return computerVector;
 }
-

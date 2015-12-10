@@ -18,7 +18,6 @@ Scientist::Scientist(int i, string n, string b, string d, string g)
     s_death = d;
 }
 
-
 //Get functions go get private variables
 
 int Scientist::getID_Scientist()
@@ -45,7 +44,6 @@ string Scientist::getDeath_Scientist()
 {
     return s_death;
 }
-
 
 //Set functions to set private variables
 

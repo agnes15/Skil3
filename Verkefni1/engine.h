@@ -42,7 +42,6 @@ public:
     //Print Functions that print out the current vector
 
     int userInput();
-
 };
 
 #endif // ENGINE_H

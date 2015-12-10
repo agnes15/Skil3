@@ -138,7 +138,6 @@ void Engine::editScientists(int i)
             cout << "Invalid Input, Try again!" << endl;
             return;
     }
-
 }
 
 void Engine::editComputers(int i)
@@ -155,7 +154,6 @@ void Engine::editComputers(int i)
             cout << "Invalid Input, Try again!" << endl;
             return;
     }
-
 }
 
 void Engine::connectScientistAndComputer(int i)
@@ -179,21 +177,16 @@ void Engine::connectScientistAndComputer(int i)
     temp.clear();
 }
 
-
-//PRINT FUNCTIONS TO PRINT VECTORS
-
+//Print functions to print vectors
 void Engine::printScientistsVector(vector<Scientist> sci)
 {
-    //e-ð spes með gender breytuna stundum fer hun í næstu línu
-
     cout << setw(15) << left << "ID." << setw(20) << left << "Name" << setw(20)
          << left << "Year of birth" << setw(20) << left << "Year of death"
          << setw(20) << left << "Gender" << endl;
-
     cout << setfill ('-') << setw(85)<< "-" << endl;
     cout << setfill(' ');
 
-    for(unsigned int i = 0; i < sci.size(); i++)
+    for (unsigned int i = 0; i < sci.size(); i++)
     {
         cout << setw(10) << left << sci.at(i).getID_Scientist()
              << setw(30) << left << sci.at(i).getName_Scientist()
